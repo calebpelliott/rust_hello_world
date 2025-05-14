@@ -1,4 +1,62 @@
 fn main() {
+    // Memory allocation demonstration
+    println!("
+=== Memory Growth Strategy ===>");
+    let mut s = String::from("hi");
+    println!("Initial capacity: {}", s.capacity());
+    
+    // Track reallocations
+    let mut last_capacity = s.capacity();
+    for i in 0..10 {
+        s.push_str("hello");  // Add 5 chars each time
+        let current_capacity = s.capacity();
+        
+        if current_capacity != last_capacity {
+            println!("Reallocation occurred at length {}", s.len());
+            println!("New capacity: {}", current_capacity);
+            last_capacity = current_capacity;
+        }
+    }
+    
+    // Show that we can also pre-allocate if we know the size
+    println!("
+=== Pre-allocation Example ===>");
+    let mut pre_allocated = String::with_capacity(50);
+    println!("Pre-allocated capacity: {}", pre_allocated.capacity());
+    pre_allocated.push_str("hello world");
+    println!("Length: {}, Capacity still: {}", 
+             pre_allocated.len(), 
+             pre_allocated.capacity());
+
+    println!("
+=== Original Examples ===>");
+
+
+    // Demonstrating growable Strings
+    println!("
+=== Growable String Example ===");
+    let mut growable = String::from("Hello");
+    println!("Original string: {}", growable);
+    println!("Original capacity: {}", growable.capacity());
+    
+    // We can add more content
+    growable.push_str(", World");  // Append a string slice
+    println!("After push_str: {}", growable);
+    
+    growable.push('!');  // Append a single character
+    println!("After push: {}", growable);
+    
+    // Show how capacity grows
+    println!("Final capacity: {}", growable.capacity());
+    
+    // String literals (not growable)
+    let literal = "Hello";
+    // literal.push_str(", World");  // This would not compile - string literals are not growable
+    
+    println!("
+=== Original Examples ===");
+
+
     // 1. Basic Ownership Example
     println!("1. Basic Ownership Example:");
     let s1 = String::from("hello");  // s1 owns the string
